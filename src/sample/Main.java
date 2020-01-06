@@ -1,53 +1,52 @@
 package sample;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
+import org.joml.Vector3d;
 
-public class Main extends Application {
-    // Main EPSILON value, used for floating point value comparison
-    public static final float  EPSILON = 1e-3f;
+import java.awt.*;
 
-    @Override
-    public void start(Stage stage) {
-        float radius = 1.0f;
-        Vector3f center = new Vector3f(0.0f,0.0f,0.0f);
-        Ray ray = new Ray(new Vector3f(0.0f,0.0f,-5.0f),new Vector3f(0.0f,0.0f,1.0f));
+public class Main {
+    public static void main(String[] args) {
+        double radius = 15.0d;
+
+
+        Vector3d center = new Vector3d(0.0d,0.0d,0.0d);
         Sphere sphere = new Sphere(center,radius);
-        Intersection.IntersectionType type = sphere.intersect(ray).getType();
-        System.out.println(type);
+        //Ray r = new Ray(new Vector3d(0.0f,0.0f,-5f),new Vector3d(0.0f,0.0f,1.0f));
+        //Camera camera = new Camera(new Vector3d(0.0,0.0,-500),new Vector3d(0.0d,0.0d,1.0d),new Vector3d(1.0d,0.0d,0.0d),Math.PI / 4);
+        //Camera2 camera2 = new Camera2(new Vector3d(0.0d,0.0d,-5.0d),new Vector3d(0.0d,0.0d,1.0d),new Vector3d(1.0d,0.0d,0.0d),Math.PI/2);
+        //Intersection intersection = sphere.intersect(ray);
+        int width=512;
+        int height=512;
+        double distance= 50.0d;
+        int[]pixels=new int[width*height];
+        Scene scene = new Scene(new Geometry[]{sphere}, Color.BLACK);
+        Pinhole_Camera pinhole_camera= new Pinhole_Camera(new Vector3d(0.0d,0.0d,-distance),new Vector3d(new Vector3d(0.0d,0.0d,1.0d)));
+        Ray r = new Ray(new Vector3d(0.0d,0.0d,-distance), new Vector3d(0.0d,0.0d,1.0d));
+        Intersection intersection;
+        //Get pixel Array
+        for(int x=0; x<width; x++)
+            for(int y=0; y<height; y++)
+            {
+                r.setDir(pinhole_camera.getRayDir(width,height,x,y));
+                intersection = scene.intersectWorld(r);
+                if(intersection.getType()!= Intersection.IntersectionType.NONE){
+                    System.out.println(intersection);
+                    int red=100;
+                    int green=100;
+                    int blue=255;
+                    int rgb = (red << 16) | (green << 8) | blue;
+                    pixels[x+y*width]=rgb;
+                }
+                else {
+                    int red = 0;
+                    int green = 0;
+                    int blue = 0;
+                    int rgb = (red << 16) | (green << 8) | blue;
+                    pixels[x+y*width]=rgb;
+                }
+            }
 
-
-
-
-        //Drawing a Circle
-        Circle circle = new Circle();
-        //Setting the properties of the circle
-        circle.setCenterX(300.0f);
-        circle.setCenterY(135.0f);
-        circle.setRadius(radius);
-
-        //Creating a Group object
-        Group root = new Group(circle);
-
-        //Creating a scene object
-        Scene scene = new Scene(root, 600, 300);
-        //Setting title to the Stage
-        stage.setTitle("Drawing a Circle");
-
-        //Adding scene to the stage
-        stage.setScene(scene);
-
-        //Displaying the contents of the stage
-        stage.show();
-    }
-    public static void main(String args[]){
-        launch(args);
+        Display display = new Display(width,height,pixels);
+            display.draw();
     }
 }

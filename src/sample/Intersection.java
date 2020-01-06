@@ -1,57 +1,73 @@
 package sample;
 
-import org.joml.Vector3f;
+import org.joml.Vector3d;
 
 public class Intersection {
-    private Vector3f pos;
-    private Vector3f norm;
-    private float t;
-
+    private Object object;
+    private Vector3d pos;
+    private Vector3d norm;
+    private double distance;
     private IntersectionType type;
+
     public enum IntersectionType {
-        NONE,
+        EXTERNAL,
         INTERNAL,
-        EXTERNAL
+        NONE
+
     }
 
-    public Intersection(Vector3f pos, float t,IntersectionType type) {
+    public Intersection(Vector3d pos, double distance, IntersectionType type, Object object) {
         this.pos = pos;
-        this.t = t;
+        this.distance = distance;
         this.type = type;
+        this.object = object;
     }
 
-    public Intersection(IntersectionType type) {
-        this.pos = new Vector3f();
-        this.norm = new Vector3f();
-        this.t = 0.0f;
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
+
+    public Intersection(IntersectionType type, String object) {
+        this.pos = new Vector3d();
+        this.norm = new Vector3d();
+        this.distance = 0.0f;
         this.type = type;
+        this.object = object;
     }
 
     public IntersectionType getType() {
         return type;
     }
+    @Override
+    public String toString() {
+        return "Intersection with Object "+object+" in Point "+pos+", Distance "+distance+", Type:{"+type+"}";
+    }
 
-    public Vector3f getPos() {
+    public Vector3d getPos() {
         return pos;
     }
 
-    public void setPos(Vector3f pos) {
+    public void setPos(Vector3d pos) {
         this.pos = pos;
     }
 
-    public Vector3f getNorm() {
+    public Vector3d getNorm() {
         return norm;
     }
 
-    public void setNorm(Vector3f norm) {
+    public void setNorm(Vector3d norm) {
         this.norm = norm;
     }
 
-    public float getT() {
-        return t;
+    public double getDistance() {
+        return distance;
     }
 
-    public void setT(float t) {
-        this.t = t;
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 }
