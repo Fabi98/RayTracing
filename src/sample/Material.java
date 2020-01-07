@@ -1,5 +1,7 @@
 package sample;
 
+import java.awt.*;
+
 public class Material {
     private double ambient;
     private double brilliance;
@@ -30,16 +32,16 @@ public class Material {
         return reflection;
     }
 
-    public int getColor() {
+    public Color getColor() {
         return color;
     }
 
     private double roughness;
     private double reflection;
 
-    private int color;
+    private Color color;
 
-    public Material(int color, double ambient, double brilliance, double diffuse, double specular, double roughness, double reflection) {
+    public Material(Color color, double ambient, double brilliance, double diffuse, double specular, double roughness, double reflection) {
         this.color = color;
         this.ambient = ambient;
         this.brilliance = brilliance;

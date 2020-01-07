@@ -11,7 +11,7 @@ public class Main {
 
         int width=512;
         int height=512;
-        double distance= 5.0d;
+        double distance= 2.5d;
         Intersection intersection;
 
         //Initialize Pixel Array
@@ -24,12 +24,12 @@ public class Main {
         Sphere sphere = new Sphere(center,radius);
 
         //Add Lights
-        Light light_rear_left = new Light(new Vector3d(-3.0d,-2.0d,-2.5d), WHITE.getRGB());
-        Light light_upper_right = new Light(new Vector3d(3.0d,3.0d,2.5d), WHITE.getRGB());
+        Light light_rear_left = new Light(new Vector3d(3,3,3), WHITE);
+        //Light light_upper_left = new Light(new Vector3d(3.0d,3.0d,2.5d), WHITE);
 
         Scene scene = new Scene(new Geometry[]{sphere}
                                 , new Light[]{light_rear_left
-                                ,light_upper_right},Color.BLACK.getRGB());
+                                },Color.BLACK.getRGB());
 
         Pinhole_Camera pinhole_camera= new Pinhole_Camera(new Vector3d(0.0d,0.0d,-distance),new Vector3d(new Vector3d(0.0d,0.0d,1.0d)));
         Ray r = new Ray(pinhole_camera.getPos(),pinhole_camera.getDir());
@@ -41,12 +41,12 @@ public class Main {
                 r.setDir(pinhole_camera.getRayDir(width,height,x,y));
                 intersection = scene.intersectWorld(r);
                 if(intersection.getType()!= Intersection.IntersectionType.NONE){
-                    System.out.println(intersection);
-                    int red=100;
+                    //System.out.println(intersection);
+                    /*int red=100;
                     int green=100;
                     int blue=255;
-                    int rgb = (red << 16) | (green << 8) | blue;
-                    pixels[x+y*width]=rgb;
+                    int rgb = (red << 16) | (green << 8) | blue;*/
+                    pixels[x+y*width]=Phong.getIlluminationColor(scene.getLights(),pinhole_camera.pos,intersection,44).getRGB();
                    // pixels[x+y*width]=
                 }
                 else {
