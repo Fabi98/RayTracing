@@ -2,12 +2,19 @@ package sample;
 
 import org.joml.Vector3d;
 
+import java.awt.*;
+
 public class Sphere extends Geometry{
     private Vector3d pos;
     private double radius;
 
     public Sphere(Vector3d pos, double radius) {
-        super(pos,new Material(0.35,2,0.3,0.80,1/20,0.1));
+        super(pos,new Material(Color.red.getRGB(),0.35,2,0.3,0.80,1/20.0,0.1));
+        this.pos = pos;
+        this.radius = radius;
+    }
+    public Sphere(Vector3d pos, double radius, Material material) {
+        super(pos,material);
         this.pos = pos;
         this.radius = radius;
     }
@@ -27,7 +34,7 @@ public class Sphere extends Geometry{
          double radiusSquared = (double) Math.pow(this.radius,2);
 
          if (distToCenterSquared > radiusSquared){
-             intersection = new Intersection(Intersection.IntersectionType.NONE,this.getClass().getName());
+             intersection = new Intersection(Intersection.IntersectionType.NONE,this.getClass().getName(),material);
              return intersection;
          }
 
@@ -39,20 +46,27 @@ public class Sphere extends Geometry{
 
          if (alpha >= x){
             dist = alpha - x;
-            intersection = new Intersection(Intersection.IntersectionType.EXTERNAL,this.getClass().getName());
+            intersection = new Intersection(Intersection.IntersectionType.EXTERNAL,this.getClass().getName(),material);
          }
          else if(alpha+x>0){
-             intersection = new Intersection(Intersection.IntersectionType.INTERNAL,this.getClass().getName());
+             intersection = new Intersection(Intersection.IntersectionType.INTERNAL,this.getClass().getName(),material);
             dist = alpha + x;
          }
          else{
-             intersection = new Intersection(Intersection.IntersectionType.NONE,this.getClass().getName());
+             intersection = new Intersection(Intersection.IntersectionType.NONE,this.getClass().getName(),material);
              return intersection;
          }
 
          // Das ist unser finaler Schnittpunkt:
          q = r.position(dist);
+
+         //Compute normal from intersection point and pos
+
+         Vector3d normal = new Vector3d();
+         q.sub(pos,normal).normalize(normal);
+
         intersection.setPos(q);
+        intersection.setNormal(normal);
         intersection.setDistance(dist);
 
          return intersection;

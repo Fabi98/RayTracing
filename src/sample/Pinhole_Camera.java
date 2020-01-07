@@ -12,6 +12,15 @@ public class Pinhole_Camera {
         this.pos =pos;
         this.dir=dir;
     }
+
+    public Vector3d getPos() {
+        return pos;
+    }
+
+    public Vector3d getDir() {
+        return dir;
+    }
+
     public Vector3d getRayDir(double width, double height, int x, int y){
         //Canvas to Space conversion:
         double Sx=2*x/width-1;

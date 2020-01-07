@@ -4,7 +4,7 @@ import org.joml.Vector3d;
 
 public abstract class Geometry {
     private Vector3d pos;
-    private Material material;
+    Material material;
 
     public Geometry(Vector3d pos, Material material){
         this.pos=pos;

@@ -1,22 +1,22 @@
 package sample;
 
 import org.joml.Vector3d;
-
-import java.awt.*;
 import java.util.Arrays;
 
 public class Scene {
     private Geometry[] objects;
-    public Scene(Geometry[] objects, Color background){
+    private Light[] lights;
+    public Scene(Geometry[] objects, Light[] lights, int background){
         this.objects=objects;
     }
     public Intersection intersectWorld(Ray r){
-        Intersection nearest_intersection = new Intersection(new Vector3d(),Double.MAX_VALUE, Intersection.IntersectionType.NONE,this.getClass().getName());
+        Intersection nearest_intersection = new Intersection(Double.MAX_VALUE);
         for (Geometry geometry: objects) {
-
+            //Get current intersection
             Intersection intersection_current=geometry.intersect(r);
             if (intersection_current!=null){
                 if (intersection_current.getDistance()<nearest_intersection.getDistance()){
+                    //Determine nearest Intersection
                     nearest_intersection=intersection_current;
                 }
             }
