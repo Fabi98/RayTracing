@@ -13,10 +13,6 @@ public class Intersection {
         return material;
     }
 
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
     private Material material;
     private double distance;
     private IntersectionType type;
@@ -40,7 +36,6 @@ public class Intersection {
         this.distance= distance;
         this.type = IntersectionType.NONE;
         this.objectname = "Default";
-        this.material = new Material(Color.RED,0.35,2,0.3,0.80,1/20.0,0.1);
     }
 
     public Object getObjectname() {
