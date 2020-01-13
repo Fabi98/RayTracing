@@ -25,11 +25,11 @@ public class Main {
 
         //Add Lights
         //Light light_rear_left = new Light(new Vector3d(-10,-20,0), WHITE);
-        Light light_upper_left = new Light(new Vector3d(10.0d,20.0d,0d), WHITE);
+        Light light_upper_left = new Light(new Vector3d(10.0d,30.0d,0d), WHITE);
 
         Scene scene = new Scene(new Geometry[]{sphere}
                                 , new Light[]{light_upper_left
-                                },Color.BLACK.getRGB());
+                                },Color.RED.getRGB());
 
         Pinhole_Camera pinhole_camera= new Pinhole_Camera(new Vector3d(0.0d,0.0d,-distance),new Vector3d(new Vector3d(0.0d,0.0d,1.0d)));
         Ray r = new Ray(pinhole_camera.getPos(),pinhole_camera.getDir());
@@ -45,13 +45,13 @@ public class Main {
                     int green=100;
                     int blue=255;
                     int rgb = (red << 16) | (green << 8) | blue;*/
-                    pixels[x+y*width]=Phong.getIlluminationColor(scene.getLights(),pinhole_camera.pos,intersection,500).getRGB();
+                    pixels[x+y*width]=Phong.getIlluminationColor(scene.getLights(),pinhole_camera.pos,intersection,300).getRGB();
                     //pixels[x+y*width]= Phong2.getIlluminationColor(scene.getLights(),pinhole_camera.pos,intersection,200).getRGB();
                 }
                 else {
-                    int red = 0;
-                    int green = 0;
-                    int blue = 0;
+                    int red = 100;
+                    int green = 100;
+                    int blue = 100;
                     int rgb = (red << 16) | (green << 8) | blue;
                     pixels[x+y*width]=rgb;
                 }

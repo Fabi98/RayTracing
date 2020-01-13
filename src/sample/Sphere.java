@@ -9,7 +9,9 @@ public class Sphere extends Geometry{
     private double radius;
 
     public Sphere(Vector3d pos, double radius) {
-        super(pos,new Material(new Color(0,121,107),0.5,0.7,0.3));
+        super(pos,new Material(new Color(0,121,107),0.3,0.7,0.2));
+        //super(pos,new Material(new Color(255,255,0),0.3,0.7,0.2));
+
         this.pos = pos;
         this.radius = radius;
     }

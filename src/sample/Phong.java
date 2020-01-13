@@ -23,14 +23,13 @@ public class Phong {
 
             //2) Diffuse Part
 
-            Vector3d NL = new Vector3d();
-            lightDir.sub(intersection.getNormal(),NL);
-            Vector3d R = new Vector3d();
-            NL.mul(2*lightDir.dot(intersection.getNormal()),R);
-
             double diffuse = lightDir.dot(intersection.getNormal());
             double diffuse_factor=intersection.getMaterial().getDiffuse();
+
+            Vector3d r  = new Vector3d();
+            lightDir.reflect(intersection.getNormal(),r).normalize(r);
             // Specular Part
+            //double spec = (exponent+2.0d)/(2.0d*Math.PI) *Math.pow(r.dot(viewDir),exponent);
             double spec = (exponent+2.0d)/(2.0d*Math.PI) *Math.pow(lightDir.dot(viewDir),exponent);
             //double spec = Math.pow(R.dot(viewDir),exponent);
             double spec_factor= intersection.getMaterial().getSpecular();
@@ -46,10 +45,12 @@ public class Phong {
         //color_r = clamp(color_r,0,1);
         //color_g = clamp(color_r,0,1);
         //color_b = clamp(color_r,0,1);
-        //color_r = Math.max(color_r,0);
-        //color_g = Math.max(color_g,0);
-        //color_b = Math.max(color_b,0);
-
+        color_r = Math.max(color_r,0.0f);
+        color_g = Math.max(color_g,0.0f);
+        color_b = Math.max(color_b,0.0f);
+        color_r = Math.min(color_r,1.0f);
+        color_g = Math.min(color_g,1.0f);
+        color_b = Math.min(color_b,1.0f);
         Color erg = new Color(color_r,color_g,color_b);
         System.out.println(erg);
         return erg;
