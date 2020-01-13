@@ -29,7 +29,7 @@ public class Main {
 
         Scene scene = new Scene(new Geometry[]{sphere}
                                 , new Light[]{light_upper_left
-                                },Color.RED.getRGB());
+                                },new Color(100,100,100).getRGB());
 
         Pinhole_Camera pinhole_camera= new Pinhole_Camera(new Vector3d(0.0d,0.0d,-distance),new Vector3d(new Vector3d(0.0d,0.0d,1.0d)));
         Ray r = new Ray(pinhole_camera.getPos(),pinhole_camera.getDir());
@@ -40,20 +40,12 @@ public class Main {
                 r.setDir(pinhole_camera.getRayDir(width,height,x,y));
                 intersection = scene.intersectWorld(r);
                 if(intersection.getType()!= Intersection.IntersectionType.NONE){
-                    //System.out.println(intersection);
-                    /*int red=100;
-                    int green=100;
-                    int blue=255;
-                    int rgb = (red << 16) | (green << 8) | blue;*/
+
                     pixels[x+y*width]=Phong.getIlluminationColor(scene.getLights(),pinhole_camera.pos,intersection,300).getRGB();
-                    //pixels[x+y*width]= Phong2.getIlluminationColor(scene.getLights(),pinhole_camera.pos,intersection,200).getRGB();
                 }
                 else {
-                    int red = 100;
-                    int green = 100;
-                    int blue = 100;
-                    int rgb = (red << 16) | (green << 8) | blue;
-                    pixels[x+y*width]=rgb;
+
+                    pixels[x+y*width]=scene.getBackground();
                 }
             }
 

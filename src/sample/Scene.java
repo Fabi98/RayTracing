@@ -5,11 +5,17 @@ import java.util.Arrays;
 
 public class Scene {
     private Geometry[] objects;
-
+    private int background;
     private Light[] lights;
+
+    public int getBackground() {
+        return background;
+    }
+
     public Scene(Geometry[] objects, Light[] lights, int background){
         this.objects=objects;
         this.lights=lights;
+        this.background = background;
     }
     public Intersection intersectWorld(Ray r){
         Intersection nearest_intersection = new Intersection(Double.MAX_VALUE);
