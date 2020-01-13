@@ -42,15 +42,12 @@ public class Phong {
         color_r*=ambiant_factor+illumination_for_lights;
         color_g*=ambiant_factor+illumination_for_lights;
         color_b*=ambiant_factor+illumination_for_lights;
-        //color_r = clamp(color_r,0,1);
-        //color_g = clamp(color_r,0,1);
-        //color_b = clamp(color_r,0,1);
-        color_r = Math.max(color_r,0.0f);
-        color_g = Math.max(color_g,0.0f);
-        color_b = Math.max(color_b,0.0f);
-        color_r = Math.min(color_r,1.0f);
-        color_g = Math.min(color_g,1.0f);
-        color_b = Math.min(color_b,1.0f);
+
+        //Clamp colors from 0 to 1
+        color_r = clamp(color_r,0.0f,1.0f);
+        color_g = clamp(color_g,0.0f,1.0f);
+        color_b = clamp(color_b,0.0f,1.0f);
+
         Color erg = new Color(color_r,color_g,color_b);
         System.out.println(erg);
         return erg;
