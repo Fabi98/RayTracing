@@ -2,8 +2,6 @@ package sample;
 
 import org.joml.Vector3d;
 
-import java.awt.*;
-
 public class Intersection {
     private String objectname;
     private Vector3d pos;

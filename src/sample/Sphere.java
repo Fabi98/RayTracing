@@ -9,7 +9,8 @@ public class Sphere extends Geometry{
     private double radius;
 
     public Sphere(Vector3d pos, double radius) {
-        super(pos,new Material(new Color(0,121,107),0.3,0.7,0.2));
+        //With default Material
+        super(pos,new Material(new Color(0,121,107),0.3,0.8,0.2));
         //super(pos,new Material(new Color(255,255,0),0.3,0.7,0.2));
 
         this.pos = pos;
@@ -28,34 +29,34 @@ public class Sphere extends Geometry{
         Intersection intersection;
         // Wo ist der Punkt auf dem Strahl, der am n nächsten an mir liegt?
          double alpha = -r.getDir().dot(r.getOrigin().sub(this.pos));
-        Vector3d q=new Vector3d();
+        Vector3d q= new Vector3d();
         q = r.position(alpha);
          // Abstand zum Kugelmittelpunkt?
          q.sub(this.pos);
          double distToCenterSquared = q.lengthSquared();
-         double radiusSquared = (double) Math.pow(this.radius,2);
+         double radiusSquared = Math.pow(this.radius,2);
 
          if (distToCenterSquared > radiusSquared){
-             intersection = new Intersection(Intersection.IntersectionType.NONE,this.getClass().getName(),material);
+             intersection = new Intersection(Intersection.IntersectionType.NONE,this.getClass().getSimpleName(),material);
              return intersection;
          }
 
          // Über Pythagoras zu den beiden Schnittpunkten.
-          double x = (double)Math.sqrt(radiusSquared - distToCenterSquared);
+          double x = Math.sqrt(radiusSquared - distToCenterSquared);
          // Welcher von beiden liegt näher am Ray - Ursprung
          // positiver Strahlrichtung?
          double dist = 0.0f;
 
          if (alpha >= x){
             dist = alpha - x;
-            intersection = new Intersection(Intersection.IntersectionType.EXTERNAL,this.getClass().getName(),material);
+            intersection = new Intersection(Intersection.IntersectionType.EXTERNAL,this.getClass().getSimpleName(),material);
          }
          else if(alpha+x>0){
-             intersection = new Intersection(Intersection.IntersectionType.INTERNAL,this.getClass().getName(),material);
+             intersection = new Intersection(Intersection.IntersectionType.INTERNAL,this.getClass().getSimpleName(),material);
             dist = alpha + x;
          }
          else{
-             intersection = new Intersection(Intersection.IntersectionType.NONE,this.getClass().getName(),material);
+             intersection = new Intersection(Intersection.IntersectionType.NONE,this.getClass().getSimpleName(),material);
              return intersection;
          }
 

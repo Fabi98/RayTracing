@@ -31,6 +31,8 @@ public class Ray {
     }
 
     public Vector3d position(double scale) {
+        //Return position with scalar
+
         Vector3d pos= new Vector3d();
         Vector3d scalar_v = new Vector3d();
         scalar_v = dir.mul(scale,scalar_v);

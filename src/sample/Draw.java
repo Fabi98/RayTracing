@@ -1,21 +1,13 @@
 package sample;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
 
     class Display extends JFrame {
-        public int progress = 1;
         private int imageWidth;
         private int imageHeight;
         private int[] pixels;
-        private JFrame parent;
         private BufferedImage image;
-        private JPanel panel;
 
 
         private class MyJPanel extends JPanel {
@@ -41,18 +33,10 @@ import java.util.Arrays;
         }
 
         private void setupPanel(){
-            this.panel = new Display.MyJPanel();
-            this.panel.setPreferredSize(new Dimension(imageWidth,imageHeight));
-            this.add(this.panel);
+            JPanel panel = new MyJPanel();
+            panel.setPreferredSize(new Dimension(imageWidth,imageHeight));
+            this.add(panel);
             this.pack();
-        }
-
-        private void saveImage(File file){
-            try {
-                ImageIO.write(image, "png", file);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
         }
 
         public void draw(){
@@ -73,10 +57,5 @@ import java.util.Arrays;
         @Override
         public boolean equals(Object obj) {
             return super.equals(obj);
-        }
-
-        @Override
-        public String toString() {
-            return "sample.Display{ " + pixels + Arrays.toString(pixels)+ " }";
         }
     }

@@ -12,7 +12,6 @@ public class Main {
         int width=1024;
         int height=1024;
         double distance= 20d;
-        Intersection intersection;
 
         //Initialize Pixel Array
         int[]pixels=new int[width*height];
@@ -38,10 +37,10 @@ public class Main {
             for(int y=0; y<height; y++)
             {
                 r.setDir(pinhole_camera.getRayDir(width,height,x,y));
-                intersection = scene.intersectWorld(r);
+                Intersection intersection = scene.intersectWorld(r);
                 if(intersection.getType()!= Intersection.IntersectionType.NONE){
-
-                    pixels[x+y*width]=Phong.getIlluminationColor(scene.getLights(),pinhole_camera.pos,intersection,300).getRGB();
+                    System.out.println(intersection);
+                    pixels[x+y*width]=Phong.getIlluminationColor(scene.getLights(),pinhole_camera.pos,intersection,400).getRGB();
                 }
                 else {
 

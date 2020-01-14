@@ -18,6 +18,8 @@ public class Scene {
         this.background = background;
     }
     public Intersection intersectWorld(Ray r){
+        //Find nearest intersection in scene
+
         Intersection nearest_intersection = new Intersection(Double.MAX_VALUE);
         for (Geometry geometry: objects) {
             //Get current intersection
